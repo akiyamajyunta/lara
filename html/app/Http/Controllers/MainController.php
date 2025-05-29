@@ -12,7 +12,7 @@ class MainController extends Controller
      */
     public function index()
     {
-        //
+        return view('front/test');
     }
 
     /**
@@ -34,9 +34,10 @@ class MainController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(main $main)
+    public function show($id)
     {
-        //
+        //return $id;
+        return view('front/get', ['id' => $id]);
     }
 
     /**
