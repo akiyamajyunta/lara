@@ -1,0 +1,28 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Main;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Main>
+ */
+class MainFactory extends Factory
+{
+    protected $model = Main::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'title'   => $this->faker->text(10),    // 例: ランダムな文
+            'content' => $this->faker->text(30),   // 例: ランダムな段落
+        ];
+
+    }
+}

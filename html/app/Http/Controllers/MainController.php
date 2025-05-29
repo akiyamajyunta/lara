@@ -36,8 +36,14 @@ class MainController extends Controller
      */
     public function show($id)
     {
-        //return $id;
-        return view('front/get', ['id' => $id]);
+        $main = Main::find($id);
+        return view('front/get', ['id' => $id, 'main' => $main]);
+    }
+
+    public function all()
+    {
+        $mains = Main::get();
+        return view('front/all', ['mains' => $mains]);
     }
 
     /**
