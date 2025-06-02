@@ -21,4 +21,6 @@ Route::post('/create', [MainController::class, 'create'])->name('main.create');
 
 Route::get('/edit', [MainController::class, 'edit'])->name('main.edit');
 
+Route::post('/update', [MainController::class, 'update'])->name('main.update');
 
+Route::post('/rewrite', [MainController::class, 'rewrite'])->name('main.rewrite');

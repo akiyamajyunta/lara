@@ -21,19 +21,30 @@
             @foreach ($mains as $main)
                 <table>
                     <div class="memo-frame">
-                        <div class="box-title">
-                            <p>{{ $main->title }}</p>
-                        </div>
-                        <div>
-                            <p>{{ $main->content }}</p>
-                        </div>
-                        <div>
-                            <p>{{ $main->id }}</p>
-                        </div>
+                    @csrf    
+                        <form action="{{ route('main.rewrite')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="title" value="{{ $main->title }}">
+                            <input type="hidden" name="content" value="{{ $main->content }}">    
+                            <input type="hidden" name="id" value="{{ $main->id }}">    
+
+                            <div class="box-title" >
+                                <p>{{ $main->title }}</p>
+                            </div>
+                            <div name="content">
+                                <p>{{ $main->content }}</p>
+                            </div>
+                            <div>
+                                <p>{{ $main->id }}</p>
+                            </div>
+                            <div class='delete-memo'>
+                                <button class='delete-button' name="delete_id" value='{{$main->id}}' type="submit">編集</button>
+                            </div> <!-- 書き換え -->
+                        </form>
                         <form action="{{ route('main.delete', ['id' => $main->id]) }}" method="post">
                             @csrf
                             <div class='delete-memo'>
-                                <button class='delete-button' name="delete_id" value='{{$main->id}}' type="submit">{{$main->id}}</button>
+                                <button class='delete-button' name="delete_id" value='{{$main->id}}' type="submit">削除</button>
                             </div> <!-- 削除ボタン -->
                         </form>
                         <hr>

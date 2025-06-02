@@ -66,17 +66,39 @@ class MainController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(main $main)
+    public function edit()
     {
         return view('front/creates');
     }
+
+    public function rewrite(Request $request)
+    {
+        $title = $request->input('title');
+        $content = $request->input('content');
+        $id = $request->input('id');
+        // $title = 'たいとる';
+        // $content = 'こんてんつ';
+        return view('front/rewrite', ['title' => $title, 'content' => $content,'id' => $id]);
+    }
+
+    //rewrite
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, main $main)
     {
-        //
+        $title = $request->input('title');
+        $content = $request->input('content');
+        $id = $request->input('id');
+
+        $main = Main::find($id);
+        $main->title = $title;
+        $main->content = $content;
+        $main->save();
+
+        $mains = Main::get();
+        return view('front/main', ['mains' => $mains]);
     }
 
     /**
