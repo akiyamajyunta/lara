@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\main;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 
 class MainController extends Controller
 {
@@ -12,15 +14,26 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('front/test');
+        $mains = Main::get();
+        //dd($mains);
+        return view('front/main', ['mains' => $mains]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $title = $request->input('title');
+        $content = $request->input('content');
+
+        $main = new Main();
+        $main->title = $title;
+        $main->content = $content;
+        $main->save();
+
+        $mains = Main::get();
+        return view('front/main', ['mains' => $mains]);
     }
 
     /**
@@ -37,6 +50,10 @@ class MainController extends Controller
     public function show($id)
     {
         $main = Main::find($id);
+        if (is_null($main)){
+            \Session::flash('err_masg','データがないです');
+            return redirect(route('main.all'));
+        }
         return view('front/get', ['id' => $id, 'main' => $main]);
     }
 
@@ -51,7 +68,7 @@ class MainController extends Controller
      */
     public function edit(main $main)
     {
-        //
+        return view('front/creates');
     }
 
     /**
@@ -68,5 +85,21 @@ class MainController extends Controller
     public function destroy(main $main)
     {
         //
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request ->input('delete_id');
+        $main = Main::find($id);
+        //dd($main);
+        if ($main){
+            $main->delete();
+            return redirect()->route('main.list');
+    }else{
+            // return redirect()->route('main')->with('message', '削除しました');
+            return redirect()->route('main.list');
+
+
+    }
     }
 }
