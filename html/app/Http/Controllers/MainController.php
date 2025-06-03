@@ -32,8 +32,7 @@ class MainController extends Controller
         $main->content = $content;
         $main->save();
 
-        $mains = Main::get();
-        return view('front/main', ['mains' => $mains]);
+        return redirect()->route('main.list');
     }
 
     /**
@@ -96,9 +95,7 @@ class MainController extends Controller
         $main->title = $title;
         $main->content = $content;
         $main->save();
-
-        $mains = Main::get();
-        return view('front/main', ['mains' => $mains]);
+        return redirect()->route('main.list');
     }
 
     /**
@@ -118,10 +115,7 @@ class MainController extends Controller
             $main->delete();
             return redirect()->route('main.list');
     }else{
-            // return redirect()->route('main')->with('message', '削除しました');
             return redirect()->route('main.list');
-
-
     }
     }
 }
